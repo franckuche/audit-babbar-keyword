@@ -18,8 +18,11 @@ Ce script Python automatise l'audit de mots-clés en utilisant les API de Babbar
 6. Sauvegarde les résultats finaux dans un nouveau fichier CSV.
 
 ## Prérequis
-- Python 3.x
-- Bibliothèques Python : `requests`, `pandas`, `numpy`, `time`, `dotenv`
+- **Python 3.x** : Assurez-vous que Python 3 est installé sur votre système. Vous pouvez le télécharger et l'installer depuis [python.org](https://www.python.org/downloads/).
+
+- **Bibliothèques Python** : Ce script nécessite les bibliothèques `requests`, `pandas`, `numpy`, `time`, et `dotenv`. Ces dépendances peuvent être installées en utilisant le fichier `requirements.txt` présent dans votre répertoire de projet. Exécutez la commande suivante dans votre terminal pour installer ces bibliothèques :
+  ```bash
+  pip install -r requirements.txt
 
 ## Configuration
 1. Créez un fichier `.env` à la racine du projet pour stocker les clés API de manière sécurisée :
