@@ -3,8 +3,8 @@
 - [Prérequis](#prérequis)
 - [Configuration](#configuration)
 - [Utilisation](#utilisation)
+- [Fonctionnement du script](#fonctionnement-du-script)
 - [Sortie](#sortie)
-- [Fonctionnement Détaillé](#fonctionnement-détaillé)
 - [Fonctions](#fonctions)
 
 ## Description
@@ -37,7 +37,7 @@ Exécutez le script en utilisant la commande suivante :
 python3 script.py
 ```
 
-## Fonctionnement Détaillé
+## Fonctionnement du script
 
 Le script commence par charger les données du fichier CSV coucou.csv. Il vérifie ensuite l'existence des colonnes KEYWORD et URL. Chaque mot-clé est traité individuellement pour récupérer les résultats de recherche via ValueSERP. Les URLs obtenues sont envoyées à l'API Babbar pour extraction des métriques SEO.
 
