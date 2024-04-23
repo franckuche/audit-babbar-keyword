@@ -121,7 +121,7 @@ Le script inclut une gestion proactive des erreurs :
 - **Vérification des colonnes nécessaires** : Si les colonnes `KEYWORD` ou `URL` ne sont pas présentes, le script interrompt l'exécution et lève une exception.
 
 ```python
-raise ValueError("Required columns 'KEYWORD' or 'URL' are not present in the CSV file")
+ValueError: Required columns 'KEYWORD' or 'URL' are not present in the CSV file
 ```
 
 - Gestion des réponses d'API : En cas d'erreurs courantes telles que les erreurs 404 ou les limites de taux d'appel, le script effectue des tentatives répétées et gère l'attente nécessaire entre les tentatives.
