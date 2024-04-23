@@ -4,6 +4,7 @@
 - [Configuration](#configuration)
 - [Utilisation](#utilisation)
 - [Fonctionnement du script](#fonctionnement-du-script)
+- Déroulement et gestion des erreurs (#deroulement-et-gestion-des-erreurs)
 - [Sortie](#sortie)
 - [Fonctions](#fonctions)
 
@@ -47,6 +48,85 @@ Le script commence par charger les données du fichier CSV coucou.csv. Il vérif
 Pour chaque URL, le script effectue jusqu'à trois tentatives d'appel à l'API Babbar, gérant les problèmes comme les erreurs 404 ou les limites de taux d'appel. Les métriques recueillies sont utilisées pour calculer les médianes qui sont ensuite sauvegardées dans un DataFrame mis à jour.
 
 Le traitement finalise avec la création d'un fichier CSV contenant toutes les médianes et le compte des URLs qui ont renvoyé une erreur 404, offrant ainsi une vue consolidée des métriques pour chaque mot-clé.
+
+## Déroulement et gestion des erreurs
+
+Lors de l'exécution du script, divers messages sont affichés dans le terminal pour indiquer l'état d'avancement et pour faciliter le débogage en cas d'erreurs. Voici un résumé du flux de messages et des vérifications d'erreurs intégrées au script :
+
+### Messages du terminal
+
+1. **Chargement du fichier CSV** : Le script commence par charger le fichier CSV avec les données initiales et affiche les premières lignes pour confirmation.
+
+```bash
+Loading CSV file...
+```
+
+2. **Vérification des colonnes** : Les noms des colonnes du fichier CSV sont imprimés pour s'assurer que les colonnes nécessaires (`KEYWORD` et `URL`) sont présentes.
+
+```bash
+Les colonnes détectées dans le fichier CSV sont : ['KEYWORD', 'URL', ...]
+```
+
+3. **Traitement par mot-clé** : Pour chaque mot-clé, le script affiche le traitement en cours, ce qui aide à suivre le processus pour chaque entrée.
+
+```bash
+Processing keyword: mot-clé spécifique
+```
+
+
+4. **Réponses et erreurs API** : Chaque appel à l'API affiche le résultat ou l'erreur correspondante, permettant une réaction immédiate en cas de problème.
+- Succès :
+
+  ```
+  Successful API response from Babbar for [URL]. Metrics:
+  - Babbar Authority Score: [score]
+  - Hosts Count: [count]
+  - Link Count: [count]
+  - Internal Backlinks: [count]
+  ```
+
+- Limitation de débit :
+
+  ```
+  Rate limit reached, waiting 20 seconds before retrying... (Attempt X/3)
+  ```
+
+- Erreur 404 :
+
+  ```
+  Page not found (404) for URL: [URL]. Moving to the next one.
+  ```
+
+- Autres erreurs :
+  ```
+  Error sending URL to Babbar: [URL], Status: [status code]
+  ```
+
+5. **Échecs après tentatives multiples** :
+
+```
+Failed after 3 attempts for URL: [URL]
+```
+
+6. **Fin du traitement et sauvegarde** : À la fin du processus, un message confirme la sauvegarde des résultats dans le fichier CSV final.
+
+```
+The medians of the encountered data for the positioned URLs have been saved in 'resultat-median-babbar.csv'.
+```
+
+
+### Gestion des erreurs
+
+Le script inclut une gestion proactive des erreurs :
+- **Vérification des colonnes nécessaires** : Si les colonnes `KEYWORD` ou `URL` ne sont pas présentes, le script interrompt l'exécution et lève une exception.
+
+```python
+raise ValueError("Required columns 'KEYWORD' or 'URL' are not present in the CSV file")
+```
+
+- Gestion des réponses d'API : En cas d'erreurs courantes telles que les erreurs 404 ou les limites de taux d'appel, le script effectue des tentatives répétées et gère l'attente nécessaire entre les tentatives.
+- Logs détaillés : Les messages imprimés dans le terminal offrent une vue claire de l'état d'avancement et des problèmes rencontrés, permettant un débogage rapide et efficace.
+
 
 ## Sortie
 
