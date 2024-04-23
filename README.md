@@ -37,7 +37,7 @@ Placez le fichier CSV coucou.csv dans le même répertoire que le script.
 Exécutez le script en utilisant la commande suivante :
 
 ```bash
-python3 script.py
+python3 main.py
 ```
 
 ## Fonctionnement du script
